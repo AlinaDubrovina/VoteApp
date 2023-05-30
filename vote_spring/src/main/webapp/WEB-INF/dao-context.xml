@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="EntityManagerFactory" class="javax.persistence.Persistence"
+          factory-method="createEntityManagerFactory">
+        <constructor-arg value="vote"/>
+    </bean>
+
+    <bean id="ConnectionManager" class="by.it_academy.vote_spring.dao.util.ConnectionManager">
+        <constructor-arg ref="EntityManagerFactory"/>
+    </bean>
+
+    <bean id="EntityManager" class="javax.persistence.EntityManager" scope="prototype"
+          factory-bean="ConnectionManager" factory-method="open"/>
+
+    <bean id="ArtistDaoDB" class="by.it_academy.vote_spring.dao.db.ArtistDaoDB">
+        <constructor-arg ref="ConnectionManager"/>
+    </bean>
+
+    <bean id="GenreDaoDB" class="by.it_academy.vote_spring.dao.db.GenreDaoDB">
+        <constructor-arg ref="ConnectionManager"/>
+    </bean>
+
+    <bean id="VoteDaoDB" class="by.it_academy.vote_spring.dao.db.VoteDaoDB">
+        <constructor-arg ref="ConnectionManager"/>
+    </bean>
+
+</beans>

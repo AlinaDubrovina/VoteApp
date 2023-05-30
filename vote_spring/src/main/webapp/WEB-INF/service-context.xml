@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <import resource="dao-context.xml"/>
+
+    <bean id="ArtistService" class="by.it_academy.vote_spring.service.ArtistService">
+        <constructor-arg ref="ArtistDaoDB" />
+    </bean>
+
+    <bean id="GenreService" class="by.it_academy.vote_spring.service.GenreService">
+        <constructor-arg ref="GenreDaoDB" />
+    </bean>
+
+    <bean id="VoteService" class="by.it_academy.vote_spring.service.VoteService">
+        <constructor-arg ref="VoteDaoDB" />
+        <constructor-arg ref="ArtistService" />
+        <constructor-arg ref="GenreService" />
+    </bean>
+
+    <bean id="StatisticsService" class="by.it_academy.vote_spring.service.StatisticsService">
+        <constructor-arg ref="VoteService"/>
+        <constructor-arg ref="GenreService"/>
+        <constructor-arg ref="ArtistService"/>
+    </bean>
+
+</beans>
